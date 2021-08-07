@@ -1,0 +1,28 @@
+{
+  "name": "vados/task-executor-bundle",
+  "description": "Task Executor for Symfony",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vladyslav Pozdniakov",
+      "email": "scary.donetskiy@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.4",
+    "symfony/http-kernel": "^5.3",
+    "symfony/dependency-injection": "^5.3",
+    "symfony/config": "^5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Vados\\TaskExecutorBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Vados\\TaskExecutorBundle\\Tests\\": "tests/"
+    }
+  }
+}
