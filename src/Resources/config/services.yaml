@@ -6,3 +6,10 @@ services:
 
   Vados\TaskExecutorBundle\Service\:
     resource: '../../Service/*'
+
+  Vados\TaskExecutorBundle\Repository\:
+    resource: '../../Repository/*'
+
+  Vados\TaskExecutorBundle\Command\TaskExecuteCommand:
+    tags:
+      - { name: 'console.command' }
