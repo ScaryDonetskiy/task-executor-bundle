@@ -19,7 +19,7 @@ class Tasker
     /**
      * @throws WrongTaskClassnameException
      */
-    public function saveTask(TaskDocumentInterface $taskDocument)
+    public function saveTask(TaskDocumentInterface $taskDocument): void
     {
         if (!($taskDocument->getClassname() instanceof TaskInterface)) {
             throw new WrongTaskClassnameException();

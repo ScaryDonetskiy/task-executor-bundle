@@ -2,10 +2,11 @@
 
 namespace Vados\TaskExecutorBundle\Exception;
 
+use Exception;
 use Throwable;
 use Vados\TaskExecutorBundle\Task\TaskInterface;
 
-class WrongTaskClassnameException extends \Exception
+class WrongTaskClassnameException extends Exception
 {
     public function __construct($message = "", $code = 0, Throwable $previous = null)
     {

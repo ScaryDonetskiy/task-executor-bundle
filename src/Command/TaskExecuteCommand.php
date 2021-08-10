@@ -2,6 +2,7 @@
 
 namespace Vados\TaskExecutorBundle\Command;
 
+use Exception;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -10,6 +11,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Vados\TaskExecutorBundle\Repository\TaskRepositoryInterface;
+use Vados\TaskExecutorBundle\Task\Metadata;
 use Vados\TaskExecutorBundle\Task\TaskInterface;
 
 class TaskExecuteCommand extends Command implements LoggerAwareInterface
@@ -47,8 +49,13 @@ class TaskExecuteCommand extends Command implements LoggerAwareInterface
             $task = $this->container->get($taskDocument->getClassname());
 
             try {
-                $task->execute($taskDocument->getMetadata());
-            } catch (\Exception $e) {
+                if ($task->execute(new Metadata($taskDocument->getMetadata()))) {
+                    $io->writeln('Complete');
+                    $this->repository->deleteTask($taskDocument);
+                } else {
+                    $io->writeln('Failed');
+                }
+            } catch (Exception $e) {
                 $this->logger->error(sprintf('[Task Executor Error] %s', $e->getMessage()), [
                     'exception' => get_class($e),
                     'task_id' => $taskDocument->getId(),
@@ -60,10 +67,6 @@ class TaskExecuteCommand extends Command implements LoggerAwareInterface
 
                 continue;
             }
-
-            $io->writeln('Complete');
-
-            $this->repository->deleteTask($taskDocument);
 
             $io->newLine();
         }
