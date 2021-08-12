@@ -21,7 +21,7 @@ class Tasker
      */
     public function saveTask(TaskDocumentInterface $taskDocument): void
     {
-        if (!($taskDocument->getClassname() instanceof TaskInterface)) {
+        if (!is_subclass_of($taskDocument->getClassname(), TaskInterface::class)) {
             throw new WrongTaskClassnameException();
         }
 
