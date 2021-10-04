@@ -10,6 +10,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Vados\TaskExecutorBundle\Exception\Handler\ExceptionHandle;
+use Vados\TaskExecutorBundle\Exception\UnhandledException;
 use Vados\TaskExecutorBundle\Repository\TaskRepositoryInterface;
 use Vados\TaskExecutorBundle\Task\Metadata;
 use Vados\TaskExecutorBundle\Task\TaskInterface;
@@ -22,11 +24,13 @@ class TaskExecuteCommand extends Command implements LoggerAwareInterface
 
     private TaskRepositoryInterface $repository;
     private ContainerInterface $container;
+    private ExceptionHandle $exceptionHandle;
 
-    public function __construct(TaskRepositoryInterface $repository, ContainerInterface $container, string $name = null)
+    public function __construct(TaskRepositoryInterface $repository, ContainerInterface $container, ExceptionHandle $exceptionHandle, string $name = null)
     {
         $this->repository = $repository;
         $this->container = $container;
+        $this->exceptionHandle = $exceptionHandle;
 
         parent::__construct($name);
     }
@@ -56,14 +60,19 @@ class TaskExecuteCommand extends Command implements LoggerAwareInterface
                     $io->writeln('Failed');
                 }
             } catch (Exception $e) {
-                $this->logger->error(sprintf('[Task Executor Error] %s', $e->getMessage()), [
-                    'exception' => get_class($e),
-                    'task_id' => $taskDocument->getId(),
-                    'task_class' => $taskDocument->getClassname(),
-                    'task_metadata' => $taskDocument->getMetadata(),
-                ]);
+                try {
+                    $this->exceptionHandle->handle($e);
+                    $this->repository->deleteTask($taskDocument);
+                } catch (UnhandledException $e) {
+                    $this->logger->error(sprintf('[Task Executor Error] %s', $e->getMessage()), [
+                        'exception' => get_class($e),
+                        'task_id' => $taskDocument->getId(),
+                        'task_class' => $taskDocument->getClassname(),
+                        'task_metadata' => $taskDocument->getMetadata(),
+                    ]);
 
-                $io->error(sprintf('[%s]: %s', get_class($taskDocument), $e->getMessage()));
+                    $io->error(sprintf('[%s]: %s', get_class($taskDocument), $e->getMessage()));
+                }
 
                 continue;
             }
