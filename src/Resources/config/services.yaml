@@ -13,3 +13,7 @@ services:
   Vados\TaskExecutorBundle\Command\TaskExecuteCommand:
     tags:
       - { name: 'console.command' }
+
+  Vados\TaskExecutorBundle\Exception\Handler\ExceptionHandle:
+    arguments:
+      $handlers: !tagged_iterator vados.task.exception.handler
