@@ -19,11 +19,11 @@ class TaskRepositoryStub implements TaskRepositoryInterface
 
     public function findTask(): ?TaskDocumentInterface
     {
-        if ($findCount = $this->cache->get(self::FIND_COUNT_CACHE, static fn() => 0) === $this->findLimit) {
+        if (($findCount = $this->cache->get(self::FIND_COUNT_CACHE, static fn() => 0)) === $this->findLimit) {
             return null;
         }
 
-        $this->cache->set(self::FIND_COUNT_CACHE, $findCount++);
+        $this->cache->set(self::FIND_COUNT_CACHE, ++$findCount);
 
         return $this->taskDocument;
     }
