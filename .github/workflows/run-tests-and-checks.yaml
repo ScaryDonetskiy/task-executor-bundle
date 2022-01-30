@@ -16,5 +16,5 @@ jobs:
           restore-keys: |
             ${{runner.os}}-php-
       - uses: php-actions/composer@v1
-      - run: composer install --prefer-dist --no-progress --no--suggest
+      - run: composer install --prefer-dist --no-progress --no-suggest
       - uses: chindit/actions-phpunit@master
