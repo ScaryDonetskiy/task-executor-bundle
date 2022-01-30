@@ -9,5 +9,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: composer validate --strict
       - uses: php-actions/composer@v1
-      - run: composer install --prefer-dist --no-progress
       - uses: chindit/actions-phpunit@master
