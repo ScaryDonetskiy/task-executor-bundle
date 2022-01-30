@@ -1,0 +1,24 @@
+name: run-tests-and-checks
+on:
+  pull_request:
+    branches: [master]
+jobs:
+  run-phpunit-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Validate Composer
+        run: composer validate --strict
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{runner.os}}-php-${{hashFiles('**/composer.lock')}}
+          restore-keys: |
+            ${{runnes.os}}-php-
+
+      - name: PHPUnit (graychen)
+        uses: Graychen/phpunit-action@v1.0.0
