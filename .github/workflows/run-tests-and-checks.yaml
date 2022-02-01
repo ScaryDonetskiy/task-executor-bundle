@@ -3,10 +3,18 @@ on:
   pull_request:
     branches: [master]
 jobs:
-  run-phpunit-tests:
+  phpunit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: composer validate --strict
       - uses: php-actions/composer@v1
       - uses: chindit/actions-phpunit@master
+  phpstan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: php-actions/composer@v1
+      - uses: chindit/actions-phpstan@master
+        with:
+          arguments: 'src/ tests/ --level=5'
