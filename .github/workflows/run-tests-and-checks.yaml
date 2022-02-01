@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: php-actions/composer@v1
+      - uses: php-actions/composer@v1
       - uses: chindit/actions-phpstan@master
         with:
           arguments: 'src/ tests/ --level=5'
