@@ -21,7 +21,7 @@ class ContainerStub implements ContainerInterface
     /**
      * @inheritDoc
      */
-    public function has(string $id)
+    public function has(string $id): bool
     {
         return $this->hasResult;
     }
