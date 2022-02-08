@@ -1,7 +1,5 @@
 Quick Start 
 =
-=======
-=
 
 Step 1 - Task storage implementation
 -
@@ -33,8 +31,12 @@ about handlers [here](04-Task Handler.md).
 
 Next steps:
 -
-[Task Document description](02-Task Document.md)
-[Task Repository description](03-Task Repository.md)
-[Task Handler description](04-Task Handler.md)
-[Exception Handler](05-Exception Handler.md)
-[Command Workflow](06-Command Workflow.md)
+[Task Document description](./02-Task Document.md)
+
+[Task Repository description](./03-Task Repository.md)
+
+[Task Handler description](./04-Task Handler.md)
+
+[Exception Handler](./05-Exception Handler.md)
+
+[Command Workflow](./06-Command Workflow.md)
