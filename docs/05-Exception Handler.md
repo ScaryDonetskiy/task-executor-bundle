@@ -10,4 +10,4 @@ _HandlerInterface::accept_ method accepts a string with a class name of exceptio
 process this kind of exception or not.
 
 _HandlerInterface::handle_ method accepts \Throwable object and should make some operation with exception data. This 
-method should return the bool value which tells to the Handler, should the task be returned to the storage or deleted. 
+method should return the bool value that tells the Handler whether the error handling success or not and delete a task. 

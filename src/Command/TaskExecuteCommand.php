@@ -61,7 +61,14 @@ class TaskExecuteCommand extends Command implements LoggerAwareInterface
                 }
             } catch (Exception $e) {
                 try {
-                    $this->exceptionHandle->handle($e);
+                    if (false === $this->exceptionHandle->handle($e)) {
+                        $this->logger->error('[Task Executor Error] Exception handling is failed.', [
+                            'task_id' => $taskDocument->getId(),
+                            'task_class' => $taskDocument->getClassname(),
+                            'task_metadata' => $taskDocument->getMetadata(),
+                        ]);
+                    }
+
                     $this->repository->deleteTask($taskDocument);
                 } catch (UnhandledException $e) {
                     $this->logger->error(sprintf('[Task Executor Error] %s', $e->getMessage()), [
