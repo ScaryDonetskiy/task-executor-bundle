@@ -1,8 +1,5 @@
 Task Repository
 =
-=======
-=
-
 
 [\Vados\TaskExecutorBundle\Repository\TaskRepositoryInterface](../src/Repository/TaskRepositoryInterface.php) describes 
 the repository object which will be responsible for access to your tasks in some storage of your choice (eg. PostgreSQL 
