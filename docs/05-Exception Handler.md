@@ -1,7 +1,5 @@
 Exception Handler
 =
-=======
-=
 
 If you need to process some kinds of exceptions that could be thrown by executing your task, you can handle it using 
 Exception Handler. Bundle provide 
