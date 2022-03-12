@@ -1,7 +1,5 @@
 Task Handler
 =
-=======
-=
 
 For executing your task you need a handler that implements 
 [\Vados\TaskExecutorBundle\Task\TaskInterface](../src/Task/TaskInterface.php) interface. It contains only one method - 
