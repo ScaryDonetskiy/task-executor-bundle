@@ -1,7 +1,5 @@
 Command Workflow
 =
-=======
-=
 
 This part of the documentation describes, what's happened when you call Symfony command 'task:execute'.
 
