@@ -1,8 +1,5 @@
 Task Document
 =
-=======
-=
-
 
 [\Vados\TaskExecutorBundle\Document\TaskDocumentInterface](../src/Document/TaskDocumentInterface.php) describes entity 
 or document which contains details about task - which handler should be called, data for execution etc.
