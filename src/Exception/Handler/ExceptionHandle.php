@@ -20,14 +20,24 @@ class ExceptionHandle
     /**
      * @throws UnhandledException
      */
-    public function handle(Exception $exception): void
+    public function handle(Exception $exception): bool
     {
+        $result = null;
+
         foreach ($this->handlers as $handler) {
-            if ($handler->accept(get_class($exception)) && $handler->handle($exception)) {
-                return;
+            if ($handler->accept(get_class($exception))) {
+                $result = $handler->handle($exception);
+
+                if (true === $result) {
+                    return true;
+                }
             }
         }
 
-        throw new UnhandledException($exception);
+        if (null === $result) {
+            throw new UnhandledException($exception);
+        }
+
+        return false;
     }
 }

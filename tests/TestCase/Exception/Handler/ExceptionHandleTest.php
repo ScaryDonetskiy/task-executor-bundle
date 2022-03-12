@@ -19,7 +19,7 @@ class ExceptionHandleTest extends TestCase
 
     public function testHandleAcceptAndErrorHandle(): void
     {
-        self::expectException(UnhandledException::class);
+        self::expectOutputString('');
 
         $exceptionHandle = new ExceptionHandle([new HandlerStub(handleResult: false)]);
         $exceptionHandle->handle(new \Exception());
